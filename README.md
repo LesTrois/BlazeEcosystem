@@ -1,10 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 # Blaze Ecosystem
----
 
 # [](#header-2) Descripción del Trabajo
 
