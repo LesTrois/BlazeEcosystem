@@ -1464,7 +1464,30 @@ by(vuelos.Month, promArrDelay=vuelos.ArrDelay.mean())
 Una limitación de blaze es que no puedes seleccionar solo un grupo, es decir no pues realizar instrucciones como:
 + by(mytable.mycolumn)
 
+## Procesamiento Paralelo
 
+```python
+from time import time
+from odo import odo
+import multiprocessing
+
+
+tiempo_inicial = time()
+vuelos.count()
+tiempo_final = time()
+print(tiempo_final - tiempo_inicial)
+
+pool = multiprocessing.Pool(5)
+# Four processes
+tiempo_inicial = time()
+compute(vuelos.count(),ap=pool.map)
+tiempo_final = time()
+print(tiempo_final - tiempo_inicial)
+
+```
+
+    0.00013375282287597656
+    0.00296783447265625
 
 
 # [](#header-4) Qué no hace Blaze:
