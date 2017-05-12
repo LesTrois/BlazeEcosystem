@@ -1,8 +1,24 @@
 # Blaze Ecosystem
-
 ---
 layout: default
 ---
+
+# [](#header-2) Descripción del Trabajo
+
+# [](#header-2) Resumen
+
+# [](#header-2) Introducción
+
+# [](#header-2) Motivo y Descarga de Responsabilidad
+
+# [](#header-2) Blaze
+
+	a)Split-Apply-combine-Grouping rogger
+	b)Pandas to blaze briggette
+	c)Sql to blaze victor
+
+# [](#header-2) Implemtación
+# [](#header-2) Conclusiones
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
