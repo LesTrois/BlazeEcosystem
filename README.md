@@ -6,19 +6,18 @@ Este trabajo se enfoca en una revisión general del uso del Ecosistema Blaze, ad
 
 # [](#header-2) Resumen
 
+Blaze provee a los usuarios fácil acceso para grande cantidades de datos, reduciendo el tiempo de las consultas; además, no lee el archivo entero sino que mediante lecturas de partes del archivo conoce en que contexto trabaja, los tipos de datos,etc. Otra funcionalidad de Blaze es que nos permite la migración de datos en caso se necesite otro tipo de archivo. También podemos acotar algunas limitaciones que presenta esta interfaz con respecto a otras herramientas como Numpy/Pandas.
+
 # [](#header-2) Introducción
 
 Blaze es un sistema de consulta que se parece a NumPy / Pandas. Escribes consultas Blaze, y esta las traduce a otra cosa (como consultas SQL) y envía esas consultas a varias bases de datos para ejecutarlas en el código de otras personas. Suaviza este proceso para hacer que la interacción con datos extranjeros sea tan accesible como utilizar Pandas. Blaze aumenta la accesibilidad humana, no el rendimiento computacional.
 
 # [](#header-2) Motivo y Descarga de Responsabilidad
 
-Internamente Blaze es abstracto; Esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
-Internamente Blaze separa los cálculos de los data/ backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
+Internamente Blaze es abstracto; esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
+Internamente Blaze separa los cálculos de los data/backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
 
-# [](#header-2) Blaze
-
-	
-
+# [](#header-2) Blaze	
 
 ### Pandas a Blaze
 
@@ -1518,3 +1517,6 @@ Estas restricciones hacen que sea mucho más fácil traducir su intención a las
 
 # [](#header-2) Conclusiones
 
++ Debido a que este proceso se basa en las expresiones de Blaze, funciona igual de bien para los datos almacenados en cualquier formato en el que Blaze esté entrenado, incluyendo DataFrames en memoria, bases de datos SQL/Mongo o incluso clústeres Spark.
++ El tiempo de consulta de blaze es menor que al usar un objeto dataframe.
++ La migración de datos permite que se eliminen las redundacias que poseen ciertos archivos de datos como los archivos csv, debido a que son facilmente de entender para los humanos, pero en ciertas ocasiones confunde al ordenador.
