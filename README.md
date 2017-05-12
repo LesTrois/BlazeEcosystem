@@ -1,22 +1,24 @@
 # Blaze Ecosystem
 ---
-layout: default
----
 
 # [](#header-2) Descripción del Trabajo
+
+Este trabajo se enfoca en una revisión general del uso del Ecosistema Blaze, además de su implementación en la base de datos de los aeropuertos de U.S.
 
 # [](#header-2) Resumen
 
 # [](#header-2) Introducción
 
+Blaze es un sistema de consulta que se parece a NumPy / Pandas. Escribes consultas Blaze, y esta las traduce a otra cosa (como consultas SQL) y envía esas consultas a varias bases de datos para ejecutarlas en el código de otras personas. Suaviza este proceso para hacer que la interacción con datos extranjeros sea tan accesible como utilizar Pandas. Blaze aumenta la accesibilidad humana, no el rendimiento computacional.
+
 # [](#header-2) Motivo y Descarga de Responsabilidad
+
+Internamente Blaze es abstracto; Esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
+Internamente Blaze separa los cálculos de los data/ backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
 
 # [](#header-2) Blaze
 
-	a)Split-Apply-combine-Grouping rogger
-	b)Pandas to blaze briggette
-	c)Sql to blaze victor
-
+	
 
 
 ### Pandas a Blaze
@@ -848,6 +850,25 @@ print(tiempo_final - tiempo_inicial)
 2.  Blaze no reemplaza a Pandas. Pandas siempre tendrá más herramientas y será más maduro que Blaze. Hay cosas que simplemente no puede hacer si desea generalizar fuera de la memoria.
 
 **Recomendación:** Si sus datos se ajustan perfectamente a la memoria, utilice NumPy / Pandas. Sus datos probablemente encajen muy bien en la memoria.
+
+# [](#header-4) Restricciones
+Esta interfaz es restrictiva de dos maneras cuando se compara con los datos en memoria como pandas o dplyr.
+
+1. Debe especificar tanto el agrupador (grouper) como la reducción (reduction) al mismo tiempo
+2. El paso apply debe ser hecho por una reducción
+
+Estas restricciones hacen que sea mucho más fácil traducir su intención a las bases de datos y distribuir y paralelizar eficientemente su cálculo.
+
+# [](#header-4) Soporte de URIs
+* Directorios de archivos
+* .csv
+* .json
+* .csv.gz/json.gz
+* .hdf5 (uses h5py)
+* .hdf5::/datapath
+* hdfstore://filename.hdf5
+* .bcolz
+* .xls(x)
 
 # [](#header-2) Implemtación
 # [](#header-2) Conclusiones
