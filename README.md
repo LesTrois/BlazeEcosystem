@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Blaze Ecosystem
 ---
 
@@ -840,6 +845,630 @@ print(tiempo_final - tiempo_inicial)
 ```
 
     100.374751329422
+
+
+## CONSULTAS SQL BLAZE
+
+Blaze puede trabajar con cualquier base de datos para la cual SQLAlchemist exista.
+
+
+
+```python
+from blaze import*
+from blaze.utils import *
+from odo import odo
+```
+
+## Odo
+Es usado para migrar datos de un archivo a otro, Por ejemplo en nuestro siguiente ejemplo migramos el csv a un archivo archivo de base de datos SQL.
+
+
+```python
+odo('2008.csv','sqlite:///vuelos.db::vuelos')
+```
+
+
+
+
+    Table('vuelos', MetaData(bind=Engine(sqlite:///vuelos.db)), Column('Year', BigInteger(), table=<vuelos>, nullable=False), Column('Month', BigInteger(), table=<vuelos>, nullable=False), Column('DayofMonth', BigInteger(), table=<vuelos>, nullable=False), Column('DayOfWeek', BigInteger(), table=<vuelos>, nullable=False), Column('DepTime', FLOAT(), table=<vuelos>), Column('CRSDepTime', BigInteger(), table=<vuelos>, nullable=False), Column('ArrTime', FLOAT(), table=<vuelos>), Column('CRSArrTime', BigInteger(), table=<vuelos>, nullable=False), Column('UniqueCarrier', Text(), table=<vuelos>), Column('FlightNum', BigInteger(), table=<vuelos>, nullable=False), Column('TailNum', Text(), table=<vuelos>), Column('ActualElapsedTime', FLOAT(), table=<vuelos>), Column('CRSElapsedTime', BigInteger(), table=<vuelos>, nullable=False), Column('AirTime', FLOAT(), table=<vuelos>), Column('ArrDelay', FLOAT(), table=<vuelos>), Column('DepDelay', FLOAT(), table=<vuelos>), Column('Origin', Text(), table=<vuelos>), Column('Dest', Text(), table=<vuelos>), Column('Distance', BigInteger(), table=<vuelos>, nullable=False), Column('TaxiIn', FLOAT(), table=<vuelos>), Column('TaxiOut', FLOAT(), table=<vuelos>), Column('Cancelled', BigInteger(), table=<vuelos>, nullable=False), Column('CancellationCode', Text(), table=<vuelos>), Column('Diverted', BigInteger(), table=<vuelos>, nullable=False), Column('CarrierDelay', FLOAT(), table=<vuelos>), Column('WeatherDelay', FLOAT(), table=<vuelos>), Column('NASDelay', FLOAT(), table=<vuelos>), Column('SecurityDelay', FLOAT(), table=<vuelos>), Column('LateAircraftDelay', FLOAT(), table=<vuelos>), schema=None)
+
+
+
+
+```python
+vuelos=data('sqlite:///vuelos.db::vuelos')
+```
+
+
+```python
+vuelos.head
+```
+
+    <bound method head of <'Table' data; _name='_5', dshape='var * {  Year: int64,  Month: int64,  DayofMonth: ...'>>
+
+
+## Consultas
+
+
+#### Seleccionar multiples columnas
+La sintaxis es mas sencilla por ejemplo si quisierasmos seleccionar DayofMonth y ArrTime los terminos serian:
++ En SQL: select DayofMonth, ArrTime from vuelos
+
++ Mientras que en blaze: vuelos[['DayofMonth','ArrTime']]
+
+
+
+```python
+vuelos[['DayofMonth','ArrTime']]
+```
+
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DayofMonth</th>
+      <th>ArrTime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>2211.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>1002.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>804.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1054.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>1959.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3</td>
+      <td>2121.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3</td>
+      <td>2037.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3</td>
+      <td>1132.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>3</td>
+      <td>652.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3</td>
+      <td>1639.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>3</td>
+      <td>916.0</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+### Selección 
+
+Para seleccionar todas las columnas con tiempo llegada(ArrTime) menor < 1000.
+
++ SQL : **select * from vuelos where Arrtime < 1000**
+
++ Blaze: **vuelos[vuelos.ArrTime < 1000]**
+
+
+```python
+vuelos[vuelos.ArrTime < 1000]
+```
+
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>DayofMonth</th>
+      <th>DayOfWeek</th>
+      <th>DepTime</th>
+      <th>CRSDepTime</th>
+      <th>ArrTime</th>
+      <th>CRSArrTime</th>
+      <th>UniqueCarrier</th>
+      <th>FlightNum</th>
+      <th>TailNum</th>
+      <th>ActualElapsedTime</th>
+      <th>CRSElapsedTime</th>
+      <th>AirTime</th>
+      <th>ArrDelay</th>
+      <th>DepDelay</th>
+      <th>Origin</th>
+      <th>Dest</th>
+      <th>Distance</th>
+      <th>TaxiIn</th>
+      <th>TaxiOut</th>
+      <th>Cancelled</th>
+      <th>CancellationCode</th>
+      <th>Diverted</th>
+      <th>CarrierDelay</th>
+      <th>WeatherDelay</th>
+      <th>NASDelay</th>
+      <th>SecurityDelay</th>
+      <th>LateAircraftDelay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>628.0</td>
+      <td>620</td>
+      <td>804.0</td>
+      <td>750</td>
+      <td>WN</td>
+      <td>448</td>
+      <td>N428WN</td>
+      <td>96.0</td>
+      <td>90</td>
+      <td>76.0</td>
+      <td>14.0</td>
+      <td>8.0</td>
+      <td>IND</td>
+      <td>BWI</td>
+      <td>515</td>
+      <td>3.0</td>
+      <td>17.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>617.0</td>
+      <td>615</td>
+      <td>652.0</td>
+      <td>650</td>
+      <td>WN</td>
+      <td>11</td>
+      <td>N689SW</td>
+      <td>95.0</td>
+      <td>95</td>
+      <td>70.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>IND</td>
+      <td>MCI</td>
+      <td>451</td>
+      <td>6.0</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>706.0</td>
+      <td>700</td>
+      <td>916.0</td>
+      <td>915</td>
+      <td>WN</td>
+      <td>100</td>
+      <td>N690SW</td>
+      <td>130.0</td>
+      <td>135</td>
+      <td>106.0</td>
+      <td>1.0</td>
+      <td>6.0</td>
+      <td>IND</td>
+      <td>MCO</td>
+      <td>828</td>
+      <td>5.0</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>715.0</td>
+      <td>715</td>
+      <td>720.0</td>
+      <td>710</td>
+      <td>WN</td>
+      <td>1016</td>
+      <td>N765SW</td>
+      <td>65.0</td>
+      <td>55</td>
+      <td>37.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>IND</td>
+      <td>MDW</td>
+      <td>162</td>
+      <td>7.0</td>
+      <td>21.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>754.0</td>
+      <td>745</td>
+      <td>940.0</td>
+      <td>955</td>
+      <td>WN</td>
+      <td>1144</td>
+      <td>N778SW</td>
+      <td>226.0</td>
+      <td>250</td>
+      <td>205.0</td>
+      <td>-15.0</td>
+      <td>9.0</td>
+      <td>IND</td>
+      <td>PHX</td>
+      <td>1489</td>
+      <td>5.0</td>
+      <td>16.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>706.0</td>
+      <td>705</td>
+      <td>807.0</td>
+      <td>810</td>
+      <td>WN</td>
+      <td>68</td>
+      <td>N497WN</td>
+      <td>61.0</td>
+      <td>65</td>
+      <td>51.0</td>
+      <td>-3.0</td>
+      <td>1.0</td>
+      <td>ISP</td>
+      <td>BWI</td>
+      <td>220</td>
+      <td>3.0</td>
+      <td>7.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>801.0</td>
+      <td>800</td>
+      <td>902.0</td>
+      <td>910</td>
+      <td>WN</td>
+      <td>2101</td>
+      <td>N222WN</td>
+      <td>61.0</td>
+      <td>70</td>
+      <td>53.0</td>
+      <td>-8.0</td>
+      <td>1.0</td>
+      <td>ISP</td>
+      <td>BWI</td>
+      <td>220</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>636.0</td>
+      <td>635</td>
+      <td>921.0</td>
+      <td>945</td>
+      <td>WN</td>
+      <td>2275</td>
+      <td>N454WN</td>
+      <td>165.0</td>
+      <td>190</td>
+      <td>147.0</td>
+      <td>-24.0</td>
+      <td>1.0</td>
+      <td>ISP</td>
+      <td>FLL</td>
+      <td>1093</td>
+      <td>5.0</td>
+      <td>13.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>734.0</td>
+      <td>730</td>
+      <td>958.0</td>
+      <td>1020</td>
+      <td>WN</td>
+      <td>550</td>
+      <td>N712SW</td>
+      <td>324.0</td>
+      <td>350</td>
+      <td>314.0</td>
+      <td>-22.0</td>
+      <td>4.0</td>
+      <td>ISP</td>
+      <td>LAS</td>
+      <td>2283</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>712.0</td>
+      <td>710</td>
+      <td>953.0</td>
+      <td>1000</td>
+      <td>WN</td>
+      <td>1112</td>
+      <td>N795SW</td>
+      <td>161.0</td>
+      <td>170</td>
+      <td>142.0</td>
+      <td>-7.0</td>
+      <td>2.0</td>
+      <td>ISP</td>
+      <td>MCO</td>
+      <td>972</td>
+      <td>5.0</td>
+      <td>14.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2008</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>831.0</td>
+      <td>830</td>
+      <td>935.0</td>
+      <td>955</td>
+      <td>WN</td>
+      <td>300</td>
+      <td>N753SW</td>
+      <td>124.0</td>
+      <td>145</td>
+      <td>112.0</td>
+      <td>-20.0</td>
+      <td>1.0</td>
+      <td>ISP</td>
+      <td>MDW</td>
+      <td>765</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>0</td>
+      <td></td>
+      <td>0</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+      <td>NA</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+### Group by
+
+Para agrupar los elementos. Por ejemplo para calcular el promedio de retraso en los vuelos correspondiente a cada mes.
++ SQL: select avg(ArrDelay) from vuelos group by name
++ by(vuelos.Month, promArrDelay=vuelos.ArrDelay.mean())
+
+
+```python
+by(vuelos.Month, promArrDelay=vuelos.ArrDelay.mean())
+```
+
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>promArrDelay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>9.875419</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>12.565256</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>10.869959</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>6.677519</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.908605</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>12.978890</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>9.776353</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>6.780785</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>0.684018</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>0.412407</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>1.995444</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+### Limitación de By
+Una limitación de blaze es que no puedes seleccionar solo un grupo, es decir no pues realizar instrucciones como:
++ by(mytable.mycolumn)
 
 
 
