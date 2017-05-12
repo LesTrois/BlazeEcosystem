@@ -17,6 +17,13 @@ layout: default
 	b)Pandas to blaze briggette
 	c)Sql to blaze victor
 
+# [](#header-4) Qué no hace Blaze:
+
+1. Blaze de vez en cuando sufre de excesos. Los términos Big-Data y Pandas inevitablemente se confunden en la mente de la gente para convertirse en algo inalcanzable y llevarlos a la decepción. Blaze es limitado; aprender sus limitaciones puede dirigirle a una mayor productividad.
+2.  Blaze no reemplaza a Pandas. Pandas siempre tendrá más herramientas y será más maduro que Blaze. Hay cosas que simplemente no puede hacer si desea generalizar fuera de la memoria.
+
+**Recomendación:** Si sus datos se ajustan perfectamente a la memoria, utilice NumPy / Pandas. Sus datos probablemente encajen muy bien en la memoria.
+
 # [](#header-2) Implemtación
 # [](#header-2) Conclusiones
 
