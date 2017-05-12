@@ -14,11 +14,10 @@ Blaze es un sistema de consulta que se parece a NumPy / Pandas. Escribes consult
 
 # [](#header-2) Motivo y Descarga de Responsabilidad
 
-Internamente Blaze es abstracto; Esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
-Internamente Blaze separa los cálculos de los data/ backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
+Internamente Blaze es abstracto; esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
+Internamente Blaze separa los cálculos de los data/backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
 
 # [](#header-2) Blaze	
-
 
 ### Pandas a Blaze
 
