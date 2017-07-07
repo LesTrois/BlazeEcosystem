@@ -17,7 +17,7 @@ Blaze es un sistema de consulta que se parece a NumPy / Pandas. Blaze nos permit
 Internamente Blaze es abstracto; esto limita la interactividad. Las expresiones interactivas de Blaze resuelven este problema y proporcionan una experiencia fluida al manejo de datos extranjeros.
 Internamente Blaze separa los cálculos de los data/backend. Si bien es poderosa, esta separación abstracta limita la interactividad, uno de los objetivos centrales de Blaze. Las expresiones interactivas de Blaze son como expresiones normales, pero sus hojas pueden sujetarse a un recurso de datos concreto (como una base de datos DataFrame o SQL). Esto incorpora un contexto de datos específico, proporcionando mejoras en la interfaz de usuario a costa de generalidad.
 
-# [](#header-2) Blaze	
+# [](#header-2) Blaze
 
 ### Pandas a Blaze
 
@@ -534,7 +534,7 @@ df2.name.distinct()
 
 ## Usando CSV
 
-Cargar una data grande requiere de mucho tiempo, mas aun en la actualidad se trabaja con cantidades de datos que superan los gigas teras o petabytes
+Cargar una data grande requiere de mucho tiempo, mas aun en la actualidad se trabaja con cantidades de datos que superan los gigabytes, terabytes o petabytes.
 
 
 ```python
@@ -883,8 +883,8 @@ vuelos.head
 ## Consultas
 
 
-#### Seleccionar multiples columnas
-La sintaxis es mas sencilla por ejemplo si quisierasmos seleccionar DayofMonth y ArrTime los terminos serian:
+#### Seleccionar múltiples columnas
+La sintaxis es mas sencilla por ejemplo si quisiéramos seleccionar DayofMonth y ArrTime los terminos serian:
 + En SQL: select DayofMonth, ArrTime from vuelos
 
 + Mientras que en blaze: vuelos[['DayofMonth','ArrTime']]
@@ -967,7 +967,7 @@ vuelos[['DayofMonth','ArrTime']]
 
 
 
-### Selección 
+### Selección
 
 Para seleccionar todas las columnas con tiempo llegada(ArrTime) menor < 1000.
 
@@ -1519,4 +1519,4 @@ Estas restricciones hacen que sea mucho más fácil traducir su intención a las
 
 + Debido a que este proceso se basa en las expresiones de Blaze, funciona igual de bien para los datos almacenados en cualquier formato en el que Blaze esté entrenado, incluyendo DataFrames en memoria, bases de datos SQL/Mongo o incluso clústeres Spark.
 + El tiempo de consulta de blaze es menor que al usar un objeto dataframe.
-+ La migración de datos permite que se eliminen las redundancias que poseen ciertos archivos de datos como los archivos csv, debido a que son facilmente de entender para los humanos, pero en ciertas ocasiones confunde al ordenador.
++ La migración de datos permite que se eliminen las redundancias que poseen ciertos archivos de datos como los archivos csv, debido a que son fácilmente de entender para los humanos, pero en ciertas ocasiones confunde al ordenador.
