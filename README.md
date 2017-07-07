@@ -6,11 +6,11 @@ Este trabajo se enfoca en una revisión general del uso del Ecosistema Blaze, ad
 
 # [](#header-2) Resumen
 
-Blaze provee a los usuarios fácil acceso para grande cantidades de datos, reduciendo el tiempo de las consultas; además, no lee el archivo entero sino que mediante lecturas de partes del archivo conoce en que contexto trabaja, los tipos de datos,etc. Otra funcionalidad de Blaze es que nos permite la migración de datos en caso se necesite otro tipo de archivo. También podemos acotar algunas limitaciones que presenta esta interfaz con respecto a otras herramientas como Numpy/Pandas.
+Blaze provee a los usuarios fácil acceso para grande cantidades de datos, reduciendo el tiempo de las consultas además no lee el archivo entero sino que mediante lecturas de partes del archivo conoce en que contexto trabaja, los tipos de datos,etc. Otra funcionalidad de Blaze es que nos permite la migración de datos en caso se necesite otro tipo de archivo. También podemos acotar algunas limitaciones que presenta esta interfaz con respecto a otras herramientas como Numpy/Pandas.
 
 # [](#header-2) Introducción
 
-Blaze es un sistema de consulta que se parece a NumPy / Pandas. Escribes consultas Blaze, y esta las traduce a otra cosa (como consultas SQL) y envía esas consultas a varias bases de datos para ejecutarlas en el código de otras personas. Suaviza este proceso para hacer que la interacción con datos extranjeros sea tan accesible como utilizar Pandas. Blaze aumenta la accesibilidad humana, no el rendimiento computacional.
+Blaze es un sistema de consulta que se parece a NumPy / Pandas. Blaze nos permite realizar consultas sql con su propia sintaxis y se encarga de traducir estas a otras consultas (como SQL) y envía estas consultas a varias bases de datos para ejecutarlas en el código de otras personas. Suaviza este proceso para hacer que la interacción con datos extranjeros sea tan accesible como utilizar Pandas. Blaze aumenta la accesibilidad humana, no el rendimiento computacional.
 
 # [](#header-2) Motivo y Descarga de Responsabilidad
 
@@ -21,7 +21,7 @@ Internamente Blaze separa los cálculos de los data/backend. Si bien es poderosa
 
 ### Pandas a Blaze
 
-Llevando los datos desde un Dataframe a Un objeto Blaze
+Llevando los datos desde un Dataframe a un objeto Blaze
 
 
 ```python
@@ -534,7 +534,7 @@ df2.name.distinct()
 
 ## Usando CSV
 
-Cargar una data grande requiere de mucho tiempo, mas aun que actualmente se trabaja con cantidades de datos que superan los gigas teras o petabytes
+Cargar una data grande requiere de mucho tiempo, mas aun en la actualidad se trabaja con cantidades de datos que superan los gigas teras o petabytes
 
 
 ```python
@@ -842,7 +842,7 @@ print(tiempo_final - tiempo_inicial)
 
 ## CONSULTAS SQL BLAZE
 
-Blaze puede trabajar con cualquier base de datos para la cual SQLAlchemist exista.
+Blaze nos permite trabajar con cualquier base de datos para la cual SQLAlchemist exista.
 
 
 
@@ -1378,7 +1378,7 @@ vuelos[vuelos.ArrTime < 1000]
 
 ### Group by
 
-Para agrupar los elementos. Por ejemplo para calcular el promedio de retraso en los vuelos correspondiente a cada mes.
+Es usado para agrupar los elementos. Por ejemplo para calcular el promedio de retraso en los vuelos correspondiente a cada mes.
 + SQL: select avg(ArrDelay) from vuelos group by name
 + by(vuelos.Month, promArrDelay=vuelos.ArrDelay.mean())
 
@@ -1499,8 +1499,8 @@ print(tiempo_final - tiempo_inicial)
 # [](#header-4) Restricciones
 Esta interfaz es restrictiva de dos maneras cuando se compara con los datos en memoria como pandas o dplyr.
 
-1. Debe especificar tanto el agrupador (grouper) como la reducción (reduction) al mismo tiempo
-2. El paso apply debe ser hecho por una reducción
+1. Debe especificar tanto el agrupador (grouper) como la reducción (reduction) al mismo tiempo.
+2. El paso apply debe ser hecho por una reducción.
 
 Estas restricciones hacen que sea mucho más fácil traducir su intención a las bases de datos y distribuir y paralelizar eficientemente su cálculo.
 
@@ -1519,4 +1519,4 @@ Estas restricciones hacen que sea mucho más fácil traducir su intención a las
 
 + Debido a que este proceso se basa en las expresiones de Blaze, funciona igual de bien para los datos almacenados en cualquier formato en el que Blaze esté entrenado, incluyendo DataFrames en memoria, bases de datos SQL/Mongo o incluso clústeres Spark.
 + El tiempo de consulta de blaze es menor que al usar un objeto dataframe.
-+ La migración de datos permite que se eliminen las redundacias que poseen ciertos archivos de datos como los archivos csv, debido a que son facilmente de entender para los humanos, pero en ciertas ocasiones confunde al ordenador.
++ La migración de datos permite que se eliminen las redundancias que poseen ciertos archivos de datos como los archivos csv, debido a que son facilmente de entender para los humanos, pero en ciertas ocasiones confunde al ordenador.
